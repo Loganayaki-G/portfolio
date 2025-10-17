@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Loganayaki G — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1724;
+      --card: #0b1220;
+      --muted: #94a3b8;
+      --accent: #7c3aed;
+      --glass: rgba(255, 255, 255, 0.04);
+      --glass-2: rgba(255, 255, 255, 0.02);
+      --text: #e6eef6;
+      --card-border: rgba(255, 255, 255, 0.03);
+    }
+
+    [data-theme="light"] {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --accent: #7c3aed;
+      --glass: rgba(2, 6, 23, 0.03);
+      --glass-2: rgba(2, 6, 23, 0.02);
+      --text: #0b1220;
+      --card-border: rgba(2, 6, 23, 0.06);
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, Segoe UI, Roboto, 'Helvetica Neue', Arial;
+      color: var(--text);
+      background: linear-gradient(180deg, #071023 0%, #081427 60%);
+      transition: background 300ms ease;
+    }
+
+    [data-theme="light"] body {
+      background: linear-gradient(180deg, #fafcff 0%, #f3f6fb 60%);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 28px auto;
+      padding: 22px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      box-shadow: 0 10px 30px rgba(2, 6, 23, 0.07);
+    }
+
+    header {
+      display: flex;
+      gap: 18px;
+      align-items: center
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 6px 18px rgba(124, 58, 237, 0.12)
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 22px
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-top: 6px;
+      font-weight: 600
+    }
+
+    .contact {
+      margin-left: auto;
+      text-align: right
+    }
+
+    .pill {
+      display: inline-block;
+      background: var(--glass);
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-left: 6px;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    nav {
+      margin-top: 18px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    nav a {
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: var(--glass-2);
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none
+    }
+
+    nav a.active {
+      box-shadow: 0 6px 18px rgba(124, 58, 237, 0.12);
+      border: 1px solid rgba(124, 58, 237, 0.08);
+      transform: translateY(-2px)
+    }
+
+    .grid {
+      display: grid;
+      /* grid-template-columns: 1fr 360px; */
+      gap: 22px;
+      margin-top: 18px
+    }
+
+    @media(max-width:980px) {
+      .grid {
+        grid-template-columns: 1fr
+      }
+
+      .contact {
+        text-align: left;
+        margin-left: 0
+      }
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border)
+    }
+
+    section h2 {
+      margin: 0 0 10px 0
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px
+    }
+
+    .skill {
+      background: var(--glass);
+      padding: 6px 9px;
+      border-radius: 8px;
+      color: var(--muted);
+      font-weight: 600
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 12px
+    }
+
+    .timeline-item {
+      padding: 12px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01));
+      border: 1px solid rgba(255, 255, 255, 0.02)
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      max-height: 290px;   
+      overflow-y: auto;  
+      padding-right: 6px;
+    }
+
+
+    @media(max-width:700px) {
+      .projects {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .project {
+      padding: 12px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.01));
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease
+    }
+
+    .project:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(2, 6, 23, 0.12)
+    }
+
+    .project small {
+      color: var(--muted)
+    }
+
+    .pubs,
+    .personal {
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
+
+    footer {
+      margin-top: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(6px);
+      animation: enter 600ms forwards
+    }
+
+    .reveal.delay {
+      animation-delay: 120ms
+    }
+
+    @keyframes enter {
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .cta {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      background: linear-gradient(90deg, var(--accent), #06b6d4);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer
+    }
+
+    .cta.secondary {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      font-weight: 600
+    }
+
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 6px 8px;
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .underline {
+      height: 3px;
+      width: 80px;
+      background: linear-gradient(90deg, var(--accent), #06b6d4);
+      border-radius: 8px;
+      margin-top: 8px
+    }
+
+    .lang {
+      display: flex;
+      gap: 8px
+    }
+
+    .lang span {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 6px;
+      border-radius: 6px;
+      color: var(--muted)
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+      flex-wrap: wrap
+    }
+
+    /* modal */
+
+    /* ===== Modal Backdrop ===== */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 999;
+}
+
+.modal-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== Modal Box ===== */
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 90%;
+  max-width: 600px;
+  background: var(--modal-bg, rgba(255, 255, 255, 0.06));
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  color: var(--text-color, #fff);
+  opacity: 0;
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  max-height: 85vh;  /* scroll inside modal if too long */
+}
+
+.modal-backdrop.show .modal {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ===== Modal Header ===== */
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.modal-head h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.muted-small {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+/* ===== Close Button ===== */
+.close-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  padding: 6px 10px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  line-height: 1;
+  color: inherit;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* ===== Description ===== */
+#modalDescription {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+/* ===== Tech List ===== */
+.tech-list {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-list span {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.tech-list span:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ===== Light Mode Adaptation ===== */
+.light-mode .modal {
+  background: rgba(255, 255, 255, 0.85);
+  color: #222;
+}
+
+.light-mode .close-btn {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.light-mode .close-btn:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.light-mode .tech-list span {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.light-mode .tech-list span:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.tech-pill {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 8px;
+  background: linear-gradient(to bottom right, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.15);
+  color: inherit;
+}
+
+/* ===== Mobile Optimization ===== */
+@media (max-width: 480px) {
+  .modal {
+    padding: 16px;
+    border-radius: 16px;
+    max-width: 95%;
+  }
+
+  .modal-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .close-btn {
+    align-self: flex-end;
+  }
+}
+
+
+    /* theme toggle */
+    .theme-toggle {
+      background: var(--glass);
+      border-radius: 10px;
+      padding: 8px 10px;
+      border: 1px solid var(--card-border);
+      cursor: pointer;
+      font-weight: 700
+    }
+
+    /* minor helpers */
+    .muted-small {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .section-hidden {
+      display: none
+    }
+
+    /* timeline improvements */
+    .timeline-item strong {
+      display: block;
+      font-size: 15px
+    }
+
+    .project-title {
+      font-weight: 700;
+      margin-bottom: 6px
+    }
+
+    /* small screens */
+    @media(max-width:520px) {
+      .avatar {
+        width: 80px;
+        height: 80px
+      }
+
+      .grid {
+        gap: 12px
+      }
+
+      .contact {
+        margin-left: 0
+      }
+
+      nav {
+        overflow: auto;
+        padding-bottom: 8px
+      }
+    }
+
+
+    /* Scroller designs - start */
+html {
+  scroll-behavior: smooth;
+}
+/* Scrollbar width */
+.projects::-webkit-scrollbar {
+  width: 5px;
+}
+/* Track (background) */
+.projects::-webkit-scrollbar-track {
+  background: var(--card-border);
+  border-radius: 10px;
+}
+/* Thumb (the moving part) */
+.projects::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 10px;
+}
+/* Hover effect */
+.projects::-webkit-scrollbar-thumb:hover {
+  background: var(--card-border);
+}
+.projects {
+  scrollbar-width: thin; 
+  scrollbar-color: var(--card-border) var(--card-border);
+}
+    /* Scroller designs - end */
+  </style>
+</head>
+
+<body>
+  <div class="container" id="app">
+    <header class="reveal" style="position:relative">
+      <img class="avatar" src="https://drive.google.com/thumbnail?id=1CM_L15jhFJY8G6AmQ9BK1aa8lPcoDfdb&sz=w1000"
+        alt="Loganayaki G" />
+      <div>
+        <h1>Loganayaki G</h1>
+        <div class="subtitle">Computer Science Engineer</div>
+        <div class="underline"></div>
+        <div style="margin-top:10px;color:var(--muted)">Full-Stack Developer • Conversational AI • Machine Learning
+        </div>
+      </div>
+
+      <div class="contact" aria-hidden="false">
+        <div class="contact-list">
+          <div class="badge">📧 <a href="mailto:loganayaki245@gmail.com">loganayaki245@gmail.com</a></div>
+          <div class="badge">📞 <a href="tel:+919025198181">+91 90251 98181</a></div>
+          <div class="badge">📍 Tirunelveli, TN</div>
+        </div>
+        <div class="top-actions">
+          <a class="cta" href="#projects" data-nav="projects">Projects</a>
+          <a class="cta secondary" href="https://github.com/Loganayaki-G" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </header>
+
+    <nav class="reveal delay" role="navigation" aria-label="Main navigation" style="margin-top:18px">
+      <a class="nav-link active" data-target="experience">Experience</a>
+      <a class="nav-link" data-target="education">Education</a>
+      <a class="nav-link" data-target="skills">Skills</a>
+      <a class="nav-link" data-target="projects">Projects</a>
+      <a class="nav-link" data-target="publications">Publications</a>
+      <a class="nav-link" data-target="contact">Contact</a>
+      
+      <!-- Theme toggle (top-right) -->
+      <div style="position:absolute;right:12px;top:12px">
+        <button id="themeToggle" class="theme-toggle" aria-pressed="false" title="Toggle dark / light mode">🌙</button>
+      </div>
+    </nav>
+
+    <main class="grid">
+      <div>
+        <!-- EXPERIENCE (default visible) -->
+        <section id="experience" class="card reveal">
+          <h2>Experience</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <strong>iTechZone — Full-Stack Developer</strong>
+                <span class="meta">Aug 2021 – Present</span>
+              </div>
+              <div class="meta">Developing Django, RASA and Laravel based web & chatbot solutions; AWS deployments and
+                backend automation.</div>
+            </div>
+            <div class="timeline-item">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <strong>P.S.R. Engineering College — Assistant Professor</strong>
+                <span class="meta">Jul 2020 – Jul 2021</span>
+              </div>
+              <div class="meta">Taught programming, data structures and guided undergraduate projects in C, Python, and
+                web development.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- EDUCATION -->
+        <section id="education" class="card section-hidden reveal delay" aria-hidden="true">
+          <h2>Education</h2>
+          <div class="meta" style="margin-bottom:8px"><strong>M.E. (CSE)</strong> — Francis Xavier Engineering College
+            (2018–2020) • 8.34 CGPA</div>
+          <div class="meta" style="margin-bottom:8px"><strong>B.E. (CSE)</strong> — Francis Xavier Engineering College
+            (2014–2018) • 7.62 CGPA</div>
+          <div class="meta">HSC: St. Ignatius Convent — 71% • SSLC: St. Ignatius Convent — 84.2%</div>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills" class="card section-hidden reveal" aria-hidden="true" style="margin-top:16px">
+          <h2>Technical Exposure</h2>
+          <div class="skills" style="margin-bottom:12px">
+            <span class="skill">Python</span><span class="skill">JavaScript</span><span class="skill">PHP</span><span
+              class="skill">Django</span><span class="skill">Laravel</span><span class="skill">RASA</span><span
+              class="skill">MySQL</span><span class="skill">MongoDB</span><span class="skill">Git</span><span
+              class="skill">AWS (EC2,S3)</span><span class="skill">HTML/CSS</span><span class="skill">Jira</span>
+          </div>
+          <h3 style="margin-top:6px">Area of Interest</h3>
+          <div class="meta">Full-Stack Web Applications • Conversational AI & Chatbots • Applied Machine Learning</div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="card section-hidden reveal" aria-hidden="true" style="margin-top:16px">
+          <h2>Selected Projects</h2>
+          <div class="projects" id="projectsGrid">
+            <!-- Project tiles inserted via JS -->
+          </div>
+        </section>
+
+        <!-- PUBLICATIONS -->
+        <section id="publications" class="card section-hidden reveal" aria-hidden="true" style="margin-top:16px">
+          <h2>Publications</h2>
+          <div class="pubs">
+            <div>Classification of glaucoma with OD Segmentation & texture features — IJITEE (2020)</div>
+            <div>Classification of glaucoma using MLP — IJRAR (2020)</div>
+            <div>Detection of Glaucoma using Decision Tree — IJET (2019)</div>
+          </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="card section-hidden reveal" aria-hidden="true" style="margin-top:16px">
+          <h2>Contact & Personal</h2>
+          <div class="meta" style="margin-bottom:10px">119, Sri Srinivas Illam, West 3rd Street<br>Brindhavan Nagar, KTC
+            Nagar<br>Tirunelveli - 627011</div>
+          <div class="meta"><strong>Personal Details</strong></div>
+          <div class="meta">Gender: Female • DOB: 11-05-1997 • Married • Nationality: Indian</div>
+          <div style="margin-top:12px"><strong>Languages</strong>
+            <div class="lang"><span>Tamil</span><span>English</span></div>
+          </div>
+          <div style="margin-top:12px"><strong>Quick Links</strong>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+              <a class="badge" href="https://github.com/Loganayaki-G" target="_blank" rel="noopener">GitHub •
+                github.com/Loganayaki-G</a>
+              <a class="badge" href="https://www.linkedin.com/in/loganayaki-g-a65600145/" target="_blank"
+                rel="noopener">LinkedIn • linkedin.com/in/loganayaki-g-a65600145</a>
+              <a class="badge"
+                href="https://drive.google.com/uc?export=download&id=1r7fRZAqUogF3xVEs56EyLkqzmjq5m8xS">Download
+                Resume</a>
+            </div>
+          </div>
+
+        </section>
+      </div>
+
+    </main>
+
+    <footer class="reveal delay"> Loganayaki G • Full - Stack Developer</footer>
+  </div>
+
+  <!-- Modal template -->
+  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <div>
+          <h3 id="modalTitle">Project Title</h3>
+          <div id="modalSubtitle" class="muted-small">Short description</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="close-btn" id="modalClose" aria-label="Close modal">✕</button>
+        </div>
+      </div>
+      <div style="margin-top:12px" id="modalDescription">Full project description goes here.</div>
+      <div class="tech-list" id="modalTech"></div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- Data (projects) ----------
+    const projectsData = [
+      {
+        id: 'qa-contracts',
+        title: 'Automated Question Answering system from Contracts data',
+        description: 'Developed a web application to train a general QA BERT model to generate answers for contract-domain specific questions.',
+        tech: ['Django', 'MySQL', 'Python', 'BERT / NLP']
+      },
+      {
+        id: 'automated-chatbots',
+        title: 'Automated Chatbots — Quitty, Bundle boy & Jawa',
+        description: 'Developed automated chatbots for different roles: appointment booking & follow-up (Quitty), order information (Bundle boy), and full order management (Jawa). They answer user queries using logged data, update or retrieve information, and collect details to complete tasks.',
+        tech: ['RASA', 'MySQL', 'HTML', 'CSS', 'JavaScript']
+      },
+      {
+        id: 'summarization-tool',
+        title: 'Summarization Tool',
+        description: 'Web application that generates automated abstractive summaries for uploaded files using neural summarization models.',
+        tech: ['Django', 'MongoDB', 'Python', 'ML models']
+      },
+      {
+        id: 'main-portal',
+        title: 'Main Portal',
+        description: 'User management system that invites users, collects information, and manages four nested user levels, authenticating and directing users across a dynamic set of services.',
+        tech: ['Django', 'Python', 'MongoDB']
+      },
+      {
+        id: 'deeds-management',
+        title: 'Deeds Management System',
+        description: 'A web app for deed processing where multiple masters manage their clients, clients place deed orders, and users submit requests. Includes reporting, libraries, and template creation features.',
+        tech: ['Django', 'Python', 'AnyChart', 'MongoDB']
+      },
+      {
+        id: 'chat-tool',
+        title: 'Chat tool',
+        description: 'Front-end tool to create stories, NLU data and slots, generate RASA models, and provide each user a workspace to run their bots.',
+        tech: ['Django', 'RASA', 'MySQL']
+      },
+      {
+        id: 'contracts-lifecycle',
+        title: 'Contracts Lifecycle Management',
+        description: 'Provides a front-end for creating stories, NLU examples and slots; generates RASA models and offers isolated workspaces for each user to run their bots.',
+        tech: ['Django', 'ML models', 'MySQL']
+      },
+      {
+        id: 'annotator-tool',
+        title: 'Annotator Tool',
+        description: 'A text annotation tool that presents file content and a user-friendly interface to label text. Exports annotations as JSON for spaCy NER training. Later extended for nested annotation workflows.',
+        tech: ['Django', 'ML algorithms', 'MongoDB']
+      },
+      {
+        id: 'title-search',
+        title: 'Title Search Tool',
+        description: 'Supports title-search reporting: manage, suggest, and organize title search orders with automation-assisted proof checks for clearance.',
+        tech: ['Django', 'ML algorithms', 'MongoDB']
+      },
+      {
+        id: 'production-analysis',
+        title: 'Production Analysis',
+        description: 'Laravel project that retrieves order details from MySQL and generates charts (AnyChart) to show billing breakups, document types, counts and payment status by client/state.',
+        tech: ['Laravel', 'MySQL', 'AnyChart']
+      },
+      {
+        id: 'data-extraction',
+        title: 'Data Extraction — Forms',
+        description: 'Python-based app to extract data from scanned hand-filled forms using Tesseract, OpenCV and NumPy, storing results in MySQL and showing the original image alongside the populated digital form.',
+        tech: ['Python', 'Tesseract', 'OpenCV', 'Django', 'MySQL']
+      },
+      {
+        id: 'semantic-search',
+        title: 'Semantic Search on Files',
+        description: 'Searches files by meaning: compares a query with file content using a pre-trained BERT to compute relevance scores and highlights the most relevant excerpts and file paths.',
+        tech: ['BERT', 'Python', 'Django']
+      },
+      {
+        id: 'contract-management-app',
+        title: 'Contract Management Application',
+        description: 'Web app to create, edit and manage contracts in database. Supports clauses, sub-clauses, bulk upload via Excel, and reusable contract templates.',
+        tech: ['Django', 'Python', 'MySQL']
+      },
+      {
+        id: 'automated-chatbot-b',
+        title: 'Automated Chatbot (RASA + BERT tuning)',
+        description: 'AI-based chatbot built with RASA to retrieve data from the database and answer queries; model tuned with CoQA-like datasets to improve answer quality.',
+        tech: ['RASA', 'BERT tuning', 'MySQL']
+      },
+      {
+        id: 'abstractive-summarization',
+        title: 'Automated Abstractive Summarization',
+        description: 'Computes sentence importance using cosine similarity, selects key lines, then produces concise abstractive summaries (BERT-based) with minimal lines and natural grammar.',
+        tech: ['Python', 'Django', 'BERT']
+      },
+      {
+        id: 'glaucoma-dt',
+        title: 'Detection of Glaucoma using Decision Tree',
+        description: 'Segments optic disc and cup from retinal fundus images using morphological methods and classifies glaucoma using a decision tree; localization reported in ISNT quadrants.',
+        tech: ['Image Processing', 'Decision Tree']
+      },
+      {
+        id: 'glaucoma-mlp',
+        title: 'Detection of Glaucoma using MLP',
+        description: 'Segments optic disc and cup, extracts texture features (GLCM, entropy), and classifies glaucoma presence using a multi-layer perceptron.',
+        tech: ['Feature Extraction', 'MLP']
+      },
+      {
+        id: 'smart-ambulance',
+        title: 'Smart Emergency Mobile Application for Ambulance',
+        description: 'Mobile app to request an ambulance by sending the user’s geolocation; forwards info to nearby ambulances and suggests first-aid and nearby hospitals.',
+        tech: ['Mobile', 'Geolocation']
+      }
+    ];
+
+    // ---------- Helper: render projects grid ----------
+    function renderProjects() {
+      const grid = document.getElementById('projectsGrid');
+      grid.innerHTML = '';
+      projectsData.forEach(p => {
+        const tile = document.createElement('div');
+        tile.className = 'project';
+        tile.tabIndex = 0;
+        tile.setAttribute('role', 'button');
+        tile.setAttribute('aria-pressed', 'false');
+        tile.dataset.pid = p.id;
+        tile.innerHTML = `<div class="project-title">${p.title}</div><small>${p.tech.slice(0, 3).join(' • ')}</small>`;
+        tile.addEventListener('click', () => openModal(p.id));
+        tile.addEventListener('keypress', (e) => { if (e.key === 'Enter' || e.key === ' ') openModal(p.id); });
+        grid.appendChild(tile);
+      });
+    }
+
+    // ---------- Modal logic ----------
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalTech = document.getElementById('modalTech');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal(id) {
+      const p = projectsData.find(x => x.id === id);
+      if (!p) return;
+      modalTitle.textContent = p.title;
+      modalSubtitle.textContent = ''; // reserved for short subtitle if needed
+      modalDescription.textContent = p.description;
+      modalTech.innerHTML = '';
+      p.tech.forEach(t => {
+        const el = document.createElement('div');
+        el.className = 'tech-pill';
+        el.textContent = t;
+        modalTech.appendChild(el);
+      });
+      modalBackdrop.classList.add('show');
+      modalBackdrop.setAttribute('aria-hidden', 'false');
+      // focus for accessibility
+      modalClose.focus();
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modalBackdrop.classList.remove('show');
+      modalBackdrop.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (modalBackdrop.classList.contains('open')) closeModal();
+      }
+    });
+
+    // ---------- Navigation / Tab logic ----------
+    const navLinks = document.querySelectorAll('.nav-link');
+    function showSection(name) {
+      // Hide all
+      ['experience', 'education', 'skills', 'projects', 'publications', 'contact'].forEach(sec => {
+        const el = document.getElementById(sec);
+        if (!el) return;
+        if (sec === name) {
+          el.classList.remove('section-hidden');
+          el.setAttribute('aria-hidden', 'false');
+          // small focus for keyboard users
+          el.querySelector('h2')?.focus?.();
+        } else {
+          el.classList.add('section-hidden');
+          el.setAttribute('aria-hidden', 'true');
+        }
+      });
+      // mark nav active
+      navLinks.forEach(n => {
+        if (n.dataset.target === name) n.classList.add('active');
+        else n.classList.remove('active');
+      });
+      // Also ensure any top CTA link with data-nav highlights
+      document.querySelectorAll('[data-nav]').forEach(el => {
+        if (el.dataset.nav === name) el.classList.add('active');
+        else el.classList.remove('active');
+      });
+      // scroll to top of container for user clarity
+      document.getElementById('app').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    navLinks.forEach(n => {
+      n.addEventListener('click', () => {
+        const t = n.dataset.target;
+        if (t) showSection(t);
+      });
+      // set data-target attribute for top-level nav anchors
+      if (!n.dataset.target) {
+        const txt = n.textContent.trim().toLowerCase();
+        n.dataset.target = txt;
+      }
+    });
+
+    // make nav items keyboard friendly
+    document.querySelectorAll('nav a').forEach(a => {
+      a.tabIndex = 0;
+      a.addEventListener('keypress', (e) => { if (e.key === 'Enter') a.click(); });
+    });
+
+    // wire top CTA links (Projects button)
+    document.querySelectorAll('[data-nav]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = el.dataset.nav;
+        showSection(target);
+      });
+    });
+
+    // ---------- Theme toggle ----------
+    const themeToggle = document.getElementById('themeToggle');
+    function setTheme(theme) {
+      if (theme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeToggle.textContent = '☀️';
+        themeToggle.setAttribute('aria-pressed', 'true');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggle.textContent = '🌙';
+        themeToggle.setAttribute('aria-pressed', 'false');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    themeToggle.addEventListener('click', () => {
+      const current = localStorage.getItem('theme') === 'light' ? 'light' : 'dark';
+      setTheme(current === 'light' ? 'dark' : 'light');
+    });
+
+    // Initialize theme from localStorage or system preference
+    (function initTheme() {
+      const saved = localStorage.getItem('theme');
+      if (saved) setTheme(saved);
+      else {
+        const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        setTheme(prefersLight ? 'light' : 'dark');
+      }
+    })();
+
+    // ---------- On load ----------
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProjects();
+      // default: show experience
+      showSection('experience');
+
+      // attach nav data-targets for links we created in header (for a11y)
+      document.querySelectorAll('.nav-link').forEach(n => {
+        n.dataset.target = n.dataset.target || n.textContent.trim().toLowerCase();
+      });
+    });
+    
+  </script>
+</body>
+
+</html>
